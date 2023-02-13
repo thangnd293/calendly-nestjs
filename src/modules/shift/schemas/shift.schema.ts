@@ -1,18 +1,24 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { WorkingDay } from '@/modules/workingDay/schemas/workingDay.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Reservation } from 'src/modules/reservation/schemas/reservation.schema';
+import { Timestamps } from '@/types/timestamps.type';
 
+export type ShiftDocument = Shift & Timestamps;
 @Schema({
   timestamps: true,
 })
 export class Shift {
   @Prop()
-  user: string;
+  startTime: string;
+
+  @Prop()
+  endTime: string;
 
   @Prop({
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'WorkingDay',
   })
-  reservation: Reservation;
+  workingDay: WorkingDay;
 }
 
 export const ShiftSchema = SchemaFactory.createForClass(Shift);

@@ -1,9 +1,8 @@
-import { WorkingDay, WorkingDaySchema } from './schemas/workingDay.schema';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { WorkingDayService } from './workingDay.service';
-import { WorkingDayController } from './workingDay.controller';
 import { Shift, ShiftSchema } from '@/modules/shift/schemas/shift.schema';
+import { ShiftController } from './shift.controller';
+import { ShiftService } from './shift.service';
 import {
   Reservation,
   ReservationSchema,
@@ -11,12 +10,6 @@ import {
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      {
-        name: WorkingDay.name,
-        schema: WorkingDaySchema,
-      },
-    ]),
     MongooseModule.forFeature([
       {
         name: Shift.name,
@@ -30,7 +23,7 @@ import {
       },
     ]),
   ],
-  controllers: [WorkingDayController],
-  providers: [WorkingDayService],
+  controllers: [ShiftController],
+  providers: [ShiftService],
 })
-export class WorkingDayModule {}
+export class ShiftModule {}
